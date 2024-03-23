@@ -1,12 +1,11 @@
 from db import LaDB
 db = LaDB("datos.ldb")
 
-db.create("usuario1", {"nombre":"Juan", "edad":20})
+db.create_table("users")
+# {"id":1, "organization":1, "email":"tumamitaentanga@gmail.com", "fullname":"Jorge Nitales Sepulveda Mangueco", "position":"Admin", "avatar":"-", "password":"12345", "phone":"940806215", "type":1}
 
-usuario = db.read("usuario1")
-print(usuario)
+db.insert_in_table("users", {"id":1, "organization":1, "email":"tumamitaentanga@gmail.com", "fullname":"Jorge Nitales Sepulveda Mangueco", "position":"Admin", "avatar":"-", "password":"12345", "phone":"940806215", "type":1})
 
-db.update("usuario1", {"nombre":"José", "edad":21})
-
-usuario = db.read("usuario1")
-print(usuario)
+users = db.read_table("users")
+for user in users:
+  print(user)

@@ -19,26 +19,19 @@ class LaDB:
     with open(self.file, 'w') as file:
       json.dump(self.data, file, indent=4)
 
-  def create(self, key, value):
-    if key in self.data:
-      return False
-    self.data[key] = value
-    self.save_data()
-    return True
-
-  def read(self, key):
-    return self.data.get(key)
-
-  def update(self, key, value):
-    if key in self.data:
-      self.data[key] = value
+  def create_table(self, table_name):
+    if table_name not in self.data:
+      self.data[table_name] = []
       self.save_data()
       return True
     return False
 
-  def delete(self, key):
-    if key in self.data:
-      del self.data[key]
+  def insert_in_table(self, table_name, register):
+    if table_name in self.data:
+      self.data[table_name].append(register)
       self.save_data()
       return True
     return False
+
+  def read_table(self, table_name):
+    return self.data.get(table_name, [])

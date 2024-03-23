@@ -1,6 +1,15 @@
 {
-    "usuario1": {
-        "nombre": "Jos\u00e9",
-        "edad": 21
-    }
+    "users": [
+        {
+            "id": 1,
+            "organization": 1,
+            "email": "tumamitaentanga@gmail.com",
+            "fullname": "Jorge Nitales Sepulveda Mangueco",
+            "position": "Admin",
+            "avatar": "-",
+            "password": "12345",
+            "phone": "940806215",
+            "type": 1
+        }
+    ]
 }
