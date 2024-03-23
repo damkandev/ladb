@@ -1,29 +1,28 @@
 {
+    "organizations": {
+        "records": [
+            {
+                "id": 1,
+                "name": "OpenAI"
+            }
+        ],
+        "primary_key": "id",
+        "foreign_keys": {}
+    },
     "users": {
         "records": [
             {
                 "id": 1,
                 "organization": 1,
-                "email": "tumamitaentanga@gmail.com",
-                "fullname": "Jorge Nitales Sepulveda Mangueco",
-                "position": "Admin",
-                "avatar": "-",
-                "password": "12345",
-                "phone": "940806215",
-                "type": 1
-            },
-            {
-                "id": 2,
-                "organization": 4,
-                "email": "tumamitaentanga@gmail.com",
-                "fullname": "Jorge Nitales Sepulveda Mangueco",
-                "position": "Admin",
-                "avatar": "-",
-                "password": "12345",
-                "phone": "940806215",
-                "type": 1
+                "email": "email@example.com"
             }
         ],
-        "primary_key": "id"
+        "primary_key": "id",
+        "foreign_keys": {
+            "organization": [
+                "organizations",
+                "id"
+            ]
+        }
     }
 }
