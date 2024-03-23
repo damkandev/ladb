@@ -1,15 +1,29 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "organization": 1,
-            "email": "tumamitaentanga@gmail.com",
-            "fullname": "Jorge Nitales Sepulveda Mangueco",
-            "position": "Admin",
-            "avatar": "-",
-            "password": "12345",
-            "phone": "940806215",
-            "type": 1
-        }
-    ]
+    "users": {
+        "records": [
+            {
+                "id": 1,
+                "organization": 1,
+                "email": "tumamitaentanga@gmail.com",
+                "fullname": "Jorge Nitales Sepulveda Mangueco",
+                "position": "Admin",
+                "avatar": "-",
+                "password": "12345",
+                "phone": "940806215",
+                "type": 1
+            },
+            {
+                "id": 2,
+                "organization": 4,
+                "email": "tumamitaentanga@gmail.com",
+                "fullname": "Jorge Nitales Sepulveda Mangueco",
+                "position": "Admin",
+                "avatar": "-",
+                "password": "12345",
+                "phone": "940806215",
+                "type": 1
+            }
+        ],
+        "primary_key": "id"
+    }
 }

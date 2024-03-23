@@ -19,16 +19,20 @@ class LaDB:
     with open(self.file, 'w') as file:
       json.dump(self.data, file, indent=4)
 
-  def create_table(self, table_name):
+  def create_table(self, table_name, primary_key = None):
     if table_name not in self.data:
-      self.data[table_name] = []
+      self.data[table_name] = {"records": [], "primary_key": primary_key}
       self.save_data()
       return True
     return False
 
-  def insert_in_table(self, table_name, register):
-    if table_name in self.data:
-      self.data[table_name].append(register)
+  def insert_in_table(self, table_name, record):
+    if table_name in self.data and "records" in self.data[table_name]:
+      pk = self.data[table_name]["primary_key"]
+      if pk and any(r[pk] == record[pk] for r in self.data[table_name]["records"]):
+        print(f"Error: duplicated in the primary key '{pk}'.")
+        return False
+      self.data[table_name]["records"].append(record)
       self.save_data()
       return True
     return False
