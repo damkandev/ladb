@@ -14,7 +14,8 @@
             {
                 "id": 1,
                 "organization": 1,
-                "email": "email@example.com"
+                "email": "email@example.com",
+                "type": 1
             }
         ],
         "primary_key": "id",

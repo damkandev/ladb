@@ -47,5 +47,34 @@ class LaDB:
       return True
     return False
 
-  def read_table(self, table_name):
-    return self.data.get(table_name, [])
+  def select(self, table_name, fields=None, join=None, where=None, order_by=None, limit=None):
+    records = self.data.get(table_name, {}).get("records", [])
+
+    # Aplicar WHERE
+    if where:
+      records = filter(where, records)
+
+    # Aplicar JOIN
+    if join:
+      records = list(records)
+      for i, record in enumerate(records):
+        for related_table, relation in join.items():
+          fk_field, related_field = relation
+          related_records = self.data.get(related_table, {}).get("records")
+          for related_record in related_records:
+            if related_record[related_field] == record[fk_field]:
+              records[i][related_table] = related_record
+              break
+
+    # Aplicar Order by
+    if order_by:
+      field, direction = order_by
+      records = sorted(records, key=lambda x: x.get(field), reverse = (direction == "desc"))
+
+    # Seleccionar campos especificos y aplicar LIMIT
+    results = []
+    for record in records[:limit]:
+      selected_record = {field: record[field] for field in fields} if fields else record
+      results.append(selected_record)
+
+    return results
