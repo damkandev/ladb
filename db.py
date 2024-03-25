@@ -50,31 +50,27 @@ class LaDB:
   def select(self, table_name, fields=None, join=None, where=None, order_by=None, limit=None):
     records = self.data.get(table_name, {}).get("records", [])
 
-    # Aplicar WHERE
     if where:
-      records = filter(where, records)
+      records = list(filter(where, records))
 
-    # Aplicar JOIN
-    if join:
-      records = list(records)
-      for i, record in enumerate(records):
-        for related_table, relation in join.items():
-          fk_field, related_field = relation
-          related_records = self.data.get(related_table, {}).get("records")
-          for related_record in related_records:
-            if related_record[related_field] == record[fk_field]:
-              records[i][related_table] = related_record
-              break
+    results = []
 
-    # Aplicar Order by
+    for record in records:
+      selected_record = {field: record.get(field) for field in fields} if fields else record.copy()
+
+      if join:
+        for join_table, (fk_field, pk_field) in join.items():
+          related_record = next((r for r in self.data[join_table]["records"] if r[pk_field] == record.get(fk_field, None)), None)
+          if related_record:
+            selected_record.update({"joined_" + join_table: related_record})
+
+      results.append(selected_record)
+
     if order_by:
       field, direction = order_by
-      records = sorted(records, key=lambda x: x.get(field), reverse = (direction == "desc"))
+      results = sorted(results, key=lambda x: x.get(field), reverse=(direction == "desc"))
 
-    # Seleccionar campos especificos y aplicar LIMIT
-    results = []
-    for record in records[:limit]:
-      selected_record = {field: record[field] for field in fields} if fields else record
-      results.append(selected_record)
+    if limit is not None:
+      results = results[:limit]
 
     return results

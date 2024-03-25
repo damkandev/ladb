@@ -16,6 +16,12 @@
                 "organization": 1,
                 "email": "email@example.com",
                 "type": 1
+            },
+            {
+                "id": 2,
+                "organization": 1,
+                "email": "email@example.com",
+                "type": 0
             }
         ],
         "primary_key": "id",

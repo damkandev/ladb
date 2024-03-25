@@ -2,14 +2,13 @@ from db import LaDB
 db = LaDB()
 
 def where_condition(record):
-  return record.get("type", 0) == 1
+  return record.get("type", 0) == 0
 
 results = db.select(
   "users",
-  fields = ["id", "email", "organization"],
-  where=where_condition,
+  fields = ["id", "email"],
+  join={"organizations": ("organization", "id")},
   order_by=("id", "asc"),
-  limit=10
 )
 
 print(results)
