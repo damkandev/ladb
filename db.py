@@ -74,3 +74,21 @@ class LaDB:
       results = results[:limit]
 
     return results
+  def drop(self, table_name):
+    if table_name in self.data:
+      del self.data[table_name]
+      self.save_data()
+      print(f"Table '{table_name}' has been dropped successfully.")
+    else:
+      print(f"Error: Table '{table_ name} does not exist.'")
+  
+  def delete(self, table_name, condition):
+    if table_name not in self.data:
+      print(f"Error: Table '{}' not found.")
+      return False
+    records = self.data[table_name]["records"]
+    self.data[table_name]["records"] = [record for record in records if not condition(record)]
+
+    self.save_data()
+    print("Records deleted succefully")
+    retrun True
